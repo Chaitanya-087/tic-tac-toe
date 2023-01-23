@@ -84,7 +84,7 @@ const CreateDialogBox = ({ dialogRef, roomID }) => {
                   play <BsFillPlayFill/>
                 </button>
                 
-                <a href={`whatsapp://send?text=URL`} target="_blank" className="flex flex-1">
+                <a href={`whatsapp://send?text=https://wondrous-griffin-5bc529.netlify.app/${roomID}`} target="_blank" className="flex flex-1">
                   <button className='p-1 text-[12px] w-[50px] ml-auto text-dark-blue flex items-center flex-1 justify-between px-2 rounded-sm uppercase font-semibold bg-cyan'>
                     share <MdShare />
                   </button>

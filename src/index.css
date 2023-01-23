@@ -1,0 +1,28 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+
+.bg-transparent  {
+    background: transparent;
+}
+.x {
+    @apply w-6 h-6 relative flex items-center justify-center 
+    before:content-[''] before:absolute before:w-8 before:h-2 before:rounded-sm before:bg-cyan before:rotate-45 
+    after:content-[''] after:absolute after:w-8 after:h-2 after:rounded-sm after:bg-cyan after:-rotate-45
+}
+
+.o {
+    @apply w-6 h-6 relative flex items-center justify-center
+    after:content-[''] after:absolute after:w-4 after:h-4 after:shadow-[0_0_0_8px_rgb(243,178,54)] after:rounded-full
+}
+
+.cell {
+    @apply flex items-center justify-center bg-dark-gray w-[80px] h-[80px] rounded-md shadow-[0_5px_0]
+}
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+}

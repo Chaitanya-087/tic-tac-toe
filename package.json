@@ -1,9 +1,12 @@
 {
+  "homepage": "https://Chaitanya-087.github.io/tic-tac-toe",
   "name": "tic-tac-toe_client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy":"vite build",
+    "deploy":"gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

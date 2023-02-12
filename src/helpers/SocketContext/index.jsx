@@ -1,7 +1,7 @@
 import SocketContext from './Context'
 import io from 'socket.io-client'
 
-const socket = io(`ws://localhost:8080`)
+const socket = io(`https://zs149f.deta.dev`)
 
 function SocketProvider ({children}) {
     return (

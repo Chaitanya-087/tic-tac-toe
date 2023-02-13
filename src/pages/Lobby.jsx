@@ -98,7 +98,7 @@ const Lobby = () => {
           </button>
         </div>
       </div>
-      <CreateDialogBox roomID={roomID} dialogRef={createDialogRef} />
+      <CreateDialogBox roomID={roomID} dialogRef={createDialogRef} setRoomID={setRoomID}/>
       <JoinDialogBox dialogRef={joinDialogRef} />
     </div>
   );

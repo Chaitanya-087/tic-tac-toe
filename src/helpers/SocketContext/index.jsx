@@ -1,7 +1,7 @@
 import SocketContext from './Context'
 import io from 'socket.io-client'
 
-const socket = io(`https://zs149f.deta.dev`)
+const socket = io(`wss://panoramic-sapphire-pigment.glitch.me/`)
 
 function SocketProvider ({children}) {
     return (

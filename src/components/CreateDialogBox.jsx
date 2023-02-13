@@ -4,15 +4,14 @@ import { BiCopy } from "react-icons/bi";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import {MdShare} from "react-icons/md"
-import {BsFillPlayFill} from "react-icons/bs"
+import { MdShare } from "react-icons/md";
+import { BsFillPlayFill } from "react-icons/bs";
 import "react-toastify/dist/ReactToastify.css";
 
-const CreateDialogBox = ({ dialogRef, roomID }) => {
+const CreateDialogBox = ({ dialogRef, roomID, setRoomID }) => {
   const navigate = useNavigate();
   function dialogClickHandler(e) {
-    if (e.target.tagName !== "DIALOG")
-      return;
+    if (e.target.tagName !== "DIALOG") return;
 
     const rect = e.target.getBoundingClientRect();
 
@@ -34,6 +33,7 @@ const CreateDialogBox = ({ dialogRef, roomID }) => {
   }
 
   function close() {
+    setRoomID("");
     dialogRef.current.close();
   }
 
@@ -77,19 +77,20 @@ const CreateDialogBox = ({ dialogRef, roomID }) => {
                 />
               </h3>
               <div className='flex items-center gap-4'>
-
                 <button
                   onClick={play}
                   className='p-1 text-[12px] w-[50px] text-dark-blue flex flex-1 items-center justify-between px-2 rounded-sm uppercase font-semibold bg-yellow'>
-                  play <BsFillPlayFill/>
+                  play <BsFillPlayFill />
                 </button>
-                
-                <a href={`whatsapp://send?text=https://wondrous-griffin-5bc529.netlify.app/${roomID}`} target="_blank" className="flex flex-1">
+
+                <a
+                  href={`whatsapp://send?text=https://wondrous-griffin-5bc529.netlify.app/${roomID}`}
+                  target='_blank'
+                  className='flex flex-1'>
                   <button className='p-1 text-[12px] w-[50px] ml-auto text-dark-blue flex items-center flex-1 justify-between px-2 rounded-sm uppercase font-semibold bg-cyan'>
                     share <MdShare />
                   </button>
                 </a>
-
               </div>
             </div>
           </div>

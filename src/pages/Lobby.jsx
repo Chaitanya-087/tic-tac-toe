@@ -12,11 +12,11 @@ const getUser = () => {
 };
 
 const Lobby = () => {
+  const socket = useContext(SocketContext);
   const [user, setUser] = useState(getUser());
   const [roomID, setRoomID] = useState("");
   const createDialogRef = useRef(null);
   const joinDialogRef = useRef(null);
-  const socket = useContext(SocketContext);
   const [isChange, setChange] = useState(false);
   useEffect(() => {
     localStorage.setItem("user", user);
@@ -38,7 +38,7 @@ const Lobby = () => {
 
   return (
     <div className='bg-dark-blue w-screen h-screen px-3 flex flex-col items-center justify-center'>
-      <div className='w-full flex flex-col gap-6 sm:w-80'>
+      <div className='w-full flex flex-col gap-4 sm:w-80'>
         <div className='flex items-center justify-center'>
           <div className='w-6 h-6 flex items-center justify-center relative'>
             <span className='absolute w-6 h-2 rounded-sm bg-cyan rotate-45'></span>
@@ -49,9 +49,9 @@ const Lobby = () => {
           </div>
         </div>
 
-        <div className='bg-gradient-to-r border-dark-gray to-dark-blue from-dark-gray flex items-center p-3 rounded-lg gap-3 py-4 shadow-md'>
+        <div className='bg-dark-gray flex items-center p-3 rounded-lg gap-3 py-4 shadow-md'>
           <Avatar />
-          <div className='flex items-center justify-between text-light-gray w-full gap-2'>
+          <div className='flex items-center justify-between w-full text-light-gray gap-2'>
             {!isChange ? (
               <h3 className='text-md font-bold' title='user'>
                 {user}
@@ -59,7 +59,7 @@ const Lobby = () => {
             ) : (
               <input
                 type='text'
-                className='bg-transparent focus:outline-none border rounded-sm p-1'
+                className='bg-transparent w-full focus:outline-none border rounded-sm p-1'
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
               />

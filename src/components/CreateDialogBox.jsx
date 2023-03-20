@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import tictac from "../assets/icons8-tic-tac-toe-96.png";
-import { BiCopy } from "react-icons/bi";
-import { AiFillCloseCircle } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { MdShare } from "react-icons/md";
-import { BsFillPlayFill } from "react-icons/bs";
+import {BiCopy} from "react-icons/bi";
+import {AiFillCloseCircle} from "react-icons/ai";
+import {ToastContainer, toast} from "react-toastify";
+import {MdShare} from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
+import {Link} from "react-router-dom";
 
-const CreateDialogBox = ({ dialogRef, roomID, setRoomID }) => {
-  const navigate = useNavigate();
+const CreateDialogBox = ({dialogRef, roomID, setRoomID}) => {
   function dialogClickHandler(e) {
     if (e.target.tagName !== "DIALOG") return;
 
@@ -27,10 +25,6 @@ const CreateDialogBox = ({ dialogRef, roomID, setRoomID }) => {
   useEffect(() => {
     window.addEventListener("mousedown", dialogClickHandler);
   }, []);
-
-  function play() {
-    navigate(`/${roomID}`);
-  }
 
   function close() {
     setRoomID("");
@@ -56,7 +50,7 @@ const CreateDialogBox = ({ dialogRef, roomID, setRoomID }) => {
       <dialog
         className='w-[320px] backdrop:bg-[rgba(0,0,0,0.25)] bg-dark-blue  text-light-gray rounded-lg'
         ref={dialogRef}>
-        <div onClick={(e) => e.stopPropagation()}>
+        <div>
           <button
             title='close'
             className='absolute top-2 right-2'
@@ -66,10 +60,9 @@ const CreateDialogBox = ({ dialogRef, roomID, setRoomID }) => {
           <div className='flex flex-col items-center  gap-4'>
             <img src={tictac} />
             <div className='flex flex-col w-full gap-4'>
-              <span>🚀only two players are allowed in room</span>
+              <span>🚀Players: 2 / room</span>
               <h3 className='flex gap-1'>
-                🚀Connect with friend{" "}
-                <span className='underline'>{roomID}</span>
+                🚀Connect: {roomID && <span className='underline'>{roomID}</span>}
                 <BiCopy
                   title='copy'
                   className='cursor-pointer'
@@ -77,17 +70,18 @@ const CreateDialogBox = ({ dialogRef, roomID, setRoomID }) => {
                 />
               </h3>
               <div className='flex items-center gap-4'>
-                <button
-                  onClick={play}
-                  className='p-1 text-[12px] w-[50px] text-dark-blue flex flex-1 items-center justify-between px-2 rounded-sm uppercase font-semibold bg-yellow'>
-                  play <BsFillPlayFill />
-                </button>
+                <Link
+                  type='button'
+                  to={`/${roomID}`}
+                  className='py-2 flex-1 text-[12px] text-dark-blue text-center rounded-sm uppercase font-semibold bg-yellow'>
+                  play
+                </Link>
 
                 <a
                   href={`whatsapp://send?text=https://wondrous-griffin-5bc529.netlify.app/${roomID}`}
                   target='_blank'
-                  className='flex flex-1'>
-                  <button className='p-1 text-[12px] w-[50px] ml-auto text-dark-blue flex items-center flex-1 justify-between px-2 rounded-sm uppercase font-semibold bg-cyan'>
+                  className='flex flex-1 p-2 rounded-sm  bg-cyan'>
+                  <button className='flex items-center flex-1 justify-between text-[12px] font-semibold  text-dark-blue  uppercase'>
                     share <MdShare />
                   </button>
                 </a>

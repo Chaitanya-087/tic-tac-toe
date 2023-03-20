@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AiFillCloseCircle } from "react-icons/ai";
-import {BsFillPlayFill} from "react-icons/bs"
+import { Link } from "react-router-dom";
 
 const JoinDialogBox = ({ dialogRef }) => {
-  const navigate = useNavigate();
   const [roomID, setRoomID] = useState("");
 
   function dialogClickHandler(e) {
@@ -29,17 +27,13 @@ const JoinDialogBox = ({ dialogRef }) => {
     window.addEventListener("mousedown", dialogClickHandler);
   }, []);
 
-  function play() {
-    navigate(`/${roomID}`)
-  }
-  
   return (
     <dialog
       ref={dialogRef}
-      className='w-[320px] backdrop:bg-[rgba(0,0,0,0.25)] bg-dark-blue text-light-gray rounded-lg'>
-      <div className="flex flex-col gap-4">
+      className='w-[320px] backdrop-blur-lg bg-dark-blue text-light-gray rounded-lg'>
+      <div className="flex flex-col gap-2">
         <h3 className="text-center text-lg font-semibold">Join Game</h3>
-        <span className="text-center">Enter room name below</span>
+        <span className="text-left text-sm">Enter room name below</span>
         <button
           title='close'
           className='absolute top-2 right-2'
@@ -48,16 +42,14 @@ const JoinDialogBox = ({ dialogRef }) => {
         </button>
         <input
           type='text'
-          placeholder='room name...'
+          placeholder='room id...'
           title="room id"
           className='bg-transparent focus:outline-none border w-full border-1 border-light-gray rounded-sm p-2'
           onChange={(e) => setRoomID(e.target.value)}
         />
-        <button
-          onClick={play}
-          className='p-1 text-[12px] text-dark-blue flex flex-1 items-center justify-center px-2 rounded-sm uppercase font-semibold bg-yellow'>
+        <Link type="button" to={`/${roomID}`} className='w-full py-2 text-[12px] text-dark-blue text-center rounded-sm uppercase font-semibold bg-yellow'>
           play
-        </button>
+        </Link>
       </div>
     </dialog>
   );

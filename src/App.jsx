@@ -5,7 +5,7 @@ function App() {
   return (
     <Routes>
       <Route exact path="/" element={<Lobby />}/>
-      <Route path = '/:room' element={<Game />} />
+      <Route path = '/:roomID' element={<Game />} />
     </Routes>
   )  
 }

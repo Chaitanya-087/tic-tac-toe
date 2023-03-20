@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import {useState, useEffect, useContext} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+
 import SocketContext from "../helpers/SocketContext/Context";
 
 const initialState = {
@@ -8,33 +10,37 @@ const initialState = {
 };
 
 function Game() {
-  const once = useRef(false);
   const [state, setState] = useState(initialState);
-  const socket = useContext(SocketContext)
-  const roomID = window.location.pathname.slice(1,)
-  socket.emit('join room',roomID)
+  const socket = useContext(SocketContext);
+  const navigate = useNavigate();
+  const {roomID} = useParams();
+  
   useEffect(() => {
-    if (once.current === false) {
-      socket.on("update", (state) => {
-        setState((prev) => {
-          return { ...prev, ...state };
-        });
-        
+    socket.on("valid", (data) => {
+      if (confirm(`${data.message} ${roomID}`)) {
+        navigate("/");
+      }
+    });
+  },[]);
+
+  useEffect(() => {
+    socket.emit("join room", roomID);
+  }, []);
+  
+  useEffect(() => {
+    socket.on("update", (state) => {
+      setState((prev) => {
+        return {...prev, ...state};
       });
-
-      return () => {
-        once.current = true;
-        socket.emit("leave room", roomID);
-        setState(initialState);
-      };
-
-    }
-
+    });
+    return () => {
+      socket.emit("leave room", roomID);
+      setState(initialState);
+    };
   }, []);
 
   const handleClick = (index) => {
-    console.log(index)
-    socket.emit("move", { index, roomID });
+    socket.emit("move", {index, roomID});
   };
 
   return (
@@ -42,7 +48,10 @@ function Game() {
       <div className='flex flex-col gap-6 w-70'>
         <div className='grid grid-cols-3 gap-3'>
           {state.board?.map((e, i) => (
-            <div key={i} className={`cell ${e}`} onClick={() => handleClick(i)}></div>
+            <div
+              key={i}
+              className={`cell ${e}`}
+              onClick={() => handleClick(i)}></div>
           ))}
         </div>
       </div>

@@ -34,7 +34,7 @@ const Avatar = () => {
 
   return avatar.loading ? null : (
     <img
-      className='rounded-full'
+      className='rounded-full bg-[rgb(255,255,255)] text-center border-[3px] border-[rgba(255,255,255,0.1)] cursor-pointer'
       src={avatar.value}
       alt='Avatar'
       width='48px'

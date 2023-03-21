@@ -30,7 +30,7 @@ const JoinDialogBox = ({ dialogRef }) => {
   return (
     <dialog
       ref={dialogRef}
-      className='w-[320px] backdrop-blur-lg bg-dark-blue text-light-gray rounded-lg'>
+      className='w-[320px] backdrop:bg-[rgba(0,0,0,0.25)] bg-dark-blue  text-light-gray rounded-lg'>
       <div className="flex flex-col gap-2">
         <h3 className="text-center text-lg font-semibold">Join Game</h3>
         <span className="text-left text-sm">Enter room name below</span>

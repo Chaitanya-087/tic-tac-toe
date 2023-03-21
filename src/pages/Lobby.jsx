@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import Avatar from "../components/Avatar";
 import CreateDialogBox from "../components/CreateDialogBox";
 import SocketContext from "../helpers/SocketContext/Context";
-import { MdEdit } from "react-icons/md";
+import {MdEdit} from "react-icons/md";
 import JoinDialogBox from "../components/JoinDialogBox";
-import { BsCheckCircleFill } from "react-icons/bs";
+import {BsCheckCircleFill} from "react-icons/bs";
 
 const getUser = () => {
   let user = localStorage.getItem("user");
@@ -13,30 +13,38 @@ const getUser = () => {
 
 const Lobby = () => {
   const socket = useContext(SocketContext);
-  const [user, setUser] = useState(getUser());
-  const [roomID, setRoomID] = useState("");
   const createDialogRef = useRef(null);
   const joinDialogRef = useRef(null);
+  const [user, setUser] = useState(getUser());
+  const [roomID, setRoomID] = useState("");
   const [isChange, setChange] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("user", user);
   }, [user]);
-
-  useEffect(() => {
-    socket.on("room created", (roomID) => {
-      setRoomID(roomID);
-    });
+  
+  const handleRoomCreated = useCallback((roomid) => {
+    setRoomID(roomid);
   }, []);
 
-  function show() {
+  useEffect(() => {
+    socket.on("room created", handleRoomCreated);
+    return () => {
+      socket.off("room created", handleRoomCreated);
+    };
+  }, [socket, handleRoomCreated]);
+
+  const handleCreateRoom = useCallback(() => {
     createDialogRef.current.showModal();
     socket.emit("create room");
-  }
-  function join() {
+  }, [socket]);
+
+  const handleJoinRoom = useCallback(() => {
     joinDialogRef.current.showModal();
-  }
+  }, []);
 
   return (
+    
     <div className='bg-dark-blue w-screen h-screen px-3 flex flex-col items-center justify-center'>
       <div className='w-full flex flex-col gap-4 sm:w-80'>
         <div className='flex items-center justify-center'>
@@ -83,12 +91,12 @@ const Lobby = () => {
         <div className='flex flex-col gap-4'>
           <div className='flex items-center gap-2'>
             <button
-              onClick={show}
+              onClick={handleCreateRoom}
               className='p-4 text-[12px] flex-1 rounded-lg uppercase font-semibold bg-yellow shadow-[0_5px_0_rgb(203,140,21)]'>
               create
             </button>
             <button
-              onClick={join}
+              onClick={handleJoinRoom}
               className='p-4 text-[12px] flex-1 rounded-lg uppercase font-semibold bg-yellow shadow-[0_5px_0_rgb(203,140,21)]'>
               join
             </button>
@@ -98,7 +106,12 @@ const Lobby = () => {
           </button>
         </div>
       </div>
-      <CreateDialogBox roomID={roomID} dialogRef={createDialogRef} setRoomID={setRoomID}/>
+      <CreateDialogBox
+        roomID={roomID}
+        dialogRef={createDialogRef}
+        setRoomID={setRoomID}
+        socket={socket}
+      />
       <JoinDialogBox dialogRef={joinDialogRef} />
     </div>
   );

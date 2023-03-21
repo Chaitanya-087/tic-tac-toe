@@ -7,7 +7,7 @@ import {MdShare} from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
 import {Link} from "react-router-dom";
 
-const CreateDialogBox = ({dialogRef, roomID, setRoomID}) => {
+const CreateDialogBox = ({dialogRef, roomID, setRoomID, socket}) => {
   function dialogClickHandler(e) {
     if (e.target.tagName !== "DIALOG") return;
 
@@ -24,6 +24,9 @@ const CreateDialogBox = ({dialogRef, roomID, setRoomID}) => {
 
   useEffect(() => {
     window.addEventListener("mousedown", dialogClickHandler);
+    return () => {
+      socket.emit('leave room', roomID)
+    }
   }, []);
 
   function close() {

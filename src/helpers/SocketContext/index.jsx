@@ -1,7 +1,7 @@
 import SocketContext from './Context'
 import io from 'socket.io-client'
 
-const socket = io(`localhost:5001`)
+const socket = io(`https://socket-tic-tac-toe.onrender.com`)
 
 function SocketProvider ({children}) {
     return (

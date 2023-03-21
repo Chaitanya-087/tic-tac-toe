@@ -81,7 +81,7 @@ const CreateDialogBox = ({dialogRef, roomID, setRoomID, socket}) => {
                 </Link>
 
                 <a
-                  href={`whatsapp://send?text=https://wondrous-griffin-5bc529.netlify.app/${roomID}`}
+                  href={`whatsapp://send?text=https://tic-tac-toe-5teh.onrender.com/${roomID}`}
                   target='_blank'
                   className='flex flex-1 p-2 rounded-sm  bg-cyan'>
                   <button className='flex items-center flex-1 justify-between text-[12px] font-semibold  text-dark-blue  uppercase'>

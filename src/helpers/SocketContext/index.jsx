@@ -9,14 +9,17 @@ function SocketProvider({children}) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const newSocket = io(`https://socket-tic-tac-toe.onrender.com`);
+        const newSocket = io(`https://socket-tic-tac-toe.onrender.com`,{
+            withCredentials: true,
+            transports: ["websocket"],
+        });
         setSocket(newSocket);
         setLoading(false);
         return () => {
             newSocket.disconnect();
         };
     }, []);
-    
+
     if (loading) {
         return <div>Loading...</div>;
     }

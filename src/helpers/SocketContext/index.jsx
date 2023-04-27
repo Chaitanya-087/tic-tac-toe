@@ -1,14 +1,27 @@
-import SocketContext from './Context'
-import io from 'socket.io-client'
+import {useEffect, useState} from "react";
+import SocketContext from "./Context";
+import io from "socket.io-client";
 
-const socket = io(`https://socket-tic-tac-toe.onrender.com`)
+// https://socket-tic-tac-toe.onrender.com
 
-function SocketProvider ({children}) {
-    return (
-        <SocketContext.Provider value={socket}>
-            {children}
-        </SocketContext.Provider>
-    )
+function SocketProvider({children}) {
+    const [socket, setSocket] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const newSocket = io(`https://socket-tic-tac-toe.onrender.com`);
+        setSocket(newSocket);
+        setLoading(false);
+        return () => {
+            newSocket.disconnect();
+        };
+    }, []);
+    
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
 }
 
-export default SocketProvider
+export default SocketProvider;

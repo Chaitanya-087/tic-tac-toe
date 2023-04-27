@@ -8,6 +8,7 @@
 .bg-transparent  {
     background: transparent;
 }
+
 .x {
     @apply w-6 h-6 relative flex items-center justify-center 
     before:content-[''] before:absolute before:w-8 before:h-2 before:rounded-sm before:bg-cyan before:rotate-45 
@@ -21,6 +22,22 @@
 
 .cell {
     @apply flex items-center justify-center bg-dark-gray w-[80px] h-[80px] rounded-md shadow-[0_5px_0]
+}
+
+.x.winSquare{
+    @apply before:bg-dark-gray after:bg-dark-gray 
+}
+
+.o.winSquare{
+    
+}
+
+.cell.x.winSquare {
+    @apply bg-cyan
+}
+
+.cell.o.winSquare {
+    @apply bg-yellow
 }
 
 body {

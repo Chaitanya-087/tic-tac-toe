@@ -32,16 +32,6 @@ const Game = () => {
         setUsers(userList);
     }, []);
 
-    useEffect(() => {
-        // add socket event listeners here
-        socket.on("users", updateUserList);
-
-        // return a cleanup function to remove the socket event listeners
-        return () => {
-            socket.off("users", updateUserList);
-        };
-    }, [updateUserList]);
-
     const handleInvalidRoom = useCallback(() => {
         setInvalidRoom(true);
     }, []);
@@ -63,12 +53,14 @@ const Game = () => {
     }, []);
 
     useEffect(() => {
-        const joinRoom = () => {
-            socket.emit("join room", roomID);
-        };
-        joinRoom();
+        socket.emit("join room", roomID);
+        socket.emit("online users", roomID);
+    }, []);
+
+    useEffect(() => {
         socket.on("invalid room", handleInvalidRoom);
         socket.on("userID", handleUserID);
+        socket.on("users", updateUserList);
         socket.on("update", handleUpdate);
         socket.on("error", handleError);
         socket.on("room full", handleRoomFull);
@@ -78,15 +70,16 @@ const Game = () => {
             socket.off("userID", handleUserID);
             socket.off("update", handleUpdate);
             socket.off("error", handleError);
+            socket.off("users", updateUserList);
             socket.off("room full", handleRoomFull);
             setState(initialState);
             setIsMyTurn(false);
         };
-    }, [roomID, handleInvalidRoom, handleUserID, handleUpdate, handleError, initialState]);
+    }, [handleInvalidRoom, handleUserID, updateUserList, handleUpdate, handleError, handleRoomFull, initialState, setIsMyTurn, setState]);
 
     useEffect(() => {
         setIsMyTurn(userID === state.turn);
-    }, [userID, state.turn]);
+    }, [userID,state.turn]);
 
     if (invalidRoom) {
         return <div>Invalid room. Go back to home.</div>;

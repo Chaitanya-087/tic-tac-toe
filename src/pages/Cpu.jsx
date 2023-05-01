@@ -14,6 +14,7 @@ const initialState = {
         winningSquares: [],
     },
 };
+
 const gameStats = {
     wins: 0,
     losses: 0,

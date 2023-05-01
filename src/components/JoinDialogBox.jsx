@@ -29,7 +29,7 @@ const JoinDialogBox = ({isOpen, setOpen}) => {
                 />
                 <button
                     onClick={() => {
-                        navigate(`/game/${roomID}`);
+                        navigate(`/${roomID}`);
                         close();
                     }}
                     className={styles.play}>

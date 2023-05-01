@@ -1,0 +1,103 @@
+.wrapper {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.show {
+    display: flex;
+}
+
+.body {
+    max-width: 320px;
+    width: 100%;
+    position: relative;
+    padding: 1rem;
+    color: var(--clr-very-light-gray);
+    background-color: var(--clr-dark-gray);
+    border-radius: 0.5rem;
+    animation: slide 0.3s ease-in-out;
+}
+
+@keyframes slide {
+    from {
+        top: -10px;
+        opactiy: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.25rem;
+}
+
+.connect {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.play {
+    padding: 0.5rem;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: black;
+    background-color: var(--clr-yellow);
+}
+
+.shareLink {
+    flex: 1;
+    background-color: var(--clr-cyan);
+    color: black;
+    border-radius: 2px;
+}
+
+.share {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    width: 100%;
+    justify-content: space-between;
+    text-transform: uppercase;
+}
+
+.icon {
+    font-size: 1.25rem;
+}
+
+@media screen and (max-width: 768px) {
+    .body {
+        max-width: 100%;
+    }
+}

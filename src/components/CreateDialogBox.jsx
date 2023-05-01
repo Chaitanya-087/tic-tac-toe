@@ -5,109 +5,85 @@ import {AiFillCloseCircle} from "react-icons/ai";
 import {ToastContainer, toast} from "react-toastify";
 import {MdShare} from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import utilStyles from "../styles/utils.module.css";
+import styles from "./CreateDialogBox.module.css";
 
-const CreateDialogBox = ({dialogRef, roomID, setRoomID, socket}) => {
-  function dialogClickHandler(e) {
-    if (e.target.tagName !== "DIALOG") return;
+const CreateDialogBox = ({isOpen,setOpen ,roomID, setRoomID}) => {
+    const navigate = useNavigate();
 
-    const rect = e.target.getBoundingClientRect();
+    const close = () => {
+        setOpen(false);
+        setRoomID("");
+    };
 
-    const clickedInDialog =
-      rect.top <= e.clientY &&
-      e.clientY <= rect.top + rect.height &&
-      rect.left <= e.clientX &&
-      e.clientX <= rect.left + rect.width;
+    const copyCode = (code) => {
+        navigator.clipboard.writeText(code);
+        toast.success("code copied👌", {
+            position: "bottom-left",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    };
 
-    if (clickedInDialog === false) e.target.close();
-  }
+    return (
+        <>
+            <section className={`${utilStyles.overlay} ${styles.wrapper} ${isOpen ? styles.show: null}`}>
+                <div className={styles.body}>
+                    <button title='close' className={styles.close} onClick={close}>
+                        <AiFillCloseCircle className={styles.icon} />
+                    </button>
+                    <div className={styles.content}>
+                        <img src={tictac} />
+                        <div className={styles.description}>
+                            <span>🚀Players: 2 / room</span>
+                            <span className={styles.connect}>
+                                🚀Connect: {roomID && <span className={utilStyles.underline}>{roomID}</span>}
+                                <BiCopy title='copy' onClick={() => copyCode(roomID)} />
+                            </span>
+                            <div className={styles.buttons}>
+                                <button
+                                    onClick={() => {
+                                        navigate(`/${roomID}`);
+                                        setOpen(false);
+                                    }}
+                                    className={styles.play}>
+                                    play
+                                </button>
 
-  useEffect(() => {
-    window.addEventListener("mousedown", dialogClickHandler);
-    return () => {
-      socket.emit('leave room', roomID)
-    }
-  }, []);
-
-  function close() {
-    setRoomID("");
-    dialogRef.current.close();
-  }
-
-  function copyCode(code) {
-    navigator.clipboard.writeText(code);
-    toast.success("code copied👌", {
-      position: "bottom-left",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  }
-
-  return (
-    <>
-      <dialog
-        className='w-[320px] backdrop:bg-[rgba(0,0,0,0.25)] bg-dark-blue  text-light-gray rounded-lg'
-        ref={dialogRef}>
-        <div>
-          <button
-            title='close'
-            className='absolute top-2 right-2'
-            onClick={close}>
-            <AiFillCloseCircle className='text-xl' />
-          </button>
-          <div className='flex flex-col items-center  gap-4'>
-            <img src={tictac} />
-            <div className='flex flex-col w-full gap-4'>
-              <span>🚀Players: 2 / room</span>
-              <h3 className='flex gap-1'>
-                🚀Connect: {roomID && <span className='underline'>{roomID}</span>}
-                <BiCopy
-                  title='copy'
-                  className='cursor-pointer'
-                  onClick={() => copyCode(roomID)}
-                />
-              </h3>
-              <div className='flex items-center gap-4'>
-                <Link
-                  type='button'
-                  to={`/${roomID}`}
-                  className='py-2 flex-1 text-[12px] text-dark-blue text-center rounded-sm uppercase font-semibold bg-yellow'>
-                  play
-                </Link>
-
-                <a
-                  href={`whatsapp://send?text=https://tic-tac-toe-5teh.onrender.com/${roomID}`}
-                  target='_blank'
-                  className='flex flex-1 p-2 rounded-sm  bg-cyan'>
-                  <button className='flex items-center flex-1 justify-between text-[12px] font-semibold  text-dark-blue  uppercase'>
-                    share <MdShare />
-                  </button>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog>
-      <ToastContainer
-        className='z-10'
-        position='bottom-left'
-        autoClose={1500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='dark'
-      />
-    </>
-  );
+                                <a
+                                    href={`whatsapp://send?text=https://tic-tac-toe-alpha-blue.vercel.app/${roomID}`}
+                                    target='_blank'
+                                    className={styles.shareLink}>
+                                    <button className={styles.share}>
+                                        share <MdShare />
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <ToastContainer
+                className='z-10'
+                position='bottom-left'
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme='dark'
+            />
+        </>
+    );
 };
 
 export default CreateDialogBox;

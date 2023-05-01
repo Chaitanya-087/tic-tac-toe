@@ -1,58 +1,43 @@
-import React, { useEffect, useState } from "react";
-import { AiFillCloseCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
+import {AiFillCloseCircle} from "react-icons/ai";
+import {useNavigate} from "react-router-dom";
+import utilStyles from "../styles/utils.module.css";
+import styles from "./JoinDialogBox.module.css";
 
-const JoinDialogBox = ({ dialogRef }) => {
-  const [roomID, setRoomID] = useState("");
+const JoinDialogBox = ({isOpen, setOpen}) => {
+    const [roomID, setRoomID] = useState("");
+    const navigate = useNavigate();
+    const close = () => {
+        setOpen(false);
+        setRoomID("");
+    };
 
-  function dialogClickHandler(e) {
-    if (e.target.tagName !== "DIALOG") return;
-
-    const rect = e.target.getBoundingClientRect();
-
-    const clickedInDialog =
-      rect.top <= e.clientY &&
-      e.clientY <= rect.top + rect.height &&
-      rect.left <= e.clientX &&
-      e.clientX <= rect.left + rect.width;
-
-    if (clickedInDialog === false) e.target.close();
-  }
-
-  function close() {
-    dialogRef.current.close();
-  }
-
-  useEffect(() => {
-    window.addEventListener("mousedown", dialogClickHandler);
-  }, []);
-
-  return (
-    <dialog
-      ref={dialogRef}
-      className='w-[320px] backdrop:bg-[rgba(0,0,0,0.25)] bg-dark-blue  text-light-gray rounded-lg'>
-      <div className="flex flex-col gap-2">
-        <h3 className="text-center text-lg font-semibold">Join Game</h3>
-        <span className="text-left text-sm">Enter room name below</span>
-        <button
-          title='close'
-          className='absolute top-2 right-2'
-          onClick={close}>
-          <AiFillCloseCircle className='text-xl' />
-        </button>
-        <input
-          type='text'
-          placeholder='room id...'
-          title="room id"
-          className='bg-transparent focus:outline-none border w-full border-1 border-light-gray rounded-sm p-2'
-          onChange={(e) => setRoomID(e.target.value)}
-        />
-        <Link type="button" to={`/${roomID}`} className='w-full py-2 text-[12px] text-dark-blue text-center rounded-sm uppercase font-semibold bg-yellow'>
-          play
-        </Link>
-      </div>
-    </dialog>
-  );
+    return (
+        <div className={`${utilStyles.overlay} ${styles.wrapper} ${isOpen ? styles.show : null}`}>
+            <div className={styles.body}>
+                <h3 className={styles.title}>Join Game</h3>
+                <p className={styles.sub}>Enter room name below</p>
+                <button title='close' className={styles.close} onClick={close}>
+                    <AiFillCloseCircle className={styles.icon} />
+                </button>
+                <input
+                    type='text'
+                    placeholder='room id...'
+                    title='room id'
+                    className={styles.roomInput}
+                    onChange={(e) => setRoomID(e.target.value)}
+                />
+                <button
+                    onClick={() => {
+                        navigate(`/game/${roomID}`);
+                        close();
+                    }}
+                    className={styles.play}>
+                    play
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default JoinDialogBox;

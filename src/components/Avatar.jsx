@@ -12,6 +12,7 @@ import {
   bigEarsNeutral,
   bigSmile
 } from "@dicebear/collection";
+import utilStyles from "../styles/utils.module.css";
 
 const Avatar = () => {
   const name = [
@@ -34,7 +35,7 @@ const Avatar = () => {
 
   return avatar.loading ? null : (
     <img
-      className='rounded-full bg-[rgb(255,255,255)] text-center border-[3px] border-[rgba(255,255,255,0.1)] cursor-pointer'
+      className={utilStyles.avatar}
       src={avatar.value}
       alt='Avatar'
       width='48px'

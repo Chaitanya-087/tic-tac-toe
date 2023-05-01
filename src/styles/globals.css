@@ -1,0 +1,50 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --clr-dark-blue: #182b32;
+    --clr-yellow: #f3b236;
+    --clr-cyan: #35c7c0;
+    --clr-dark-gray: #1f3441;
+    --clr-light-gray: #91a6b3;
+    --clr-very-light-gray: #a9bec7;
+}
+
+html,
+body {
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    background-color: var(--clr-dark-blue);
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+button {
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+input {
+    outline: none;
+    background-color: transparent;
+    border: none;
+}

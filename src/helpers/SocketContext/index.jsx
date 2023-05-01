@@ -10,8 +10,8 @@ function SocketProvider({children}) {
 
     useEffect(() => {
         const newSocket = io(`https://socket-tic-tac-toe.onrender.com`,{
+            transports: ["websocket","polling"],
             withCredentials: true,
-            transports: ["websocket"],
         });
         setSocket(newSocket);
         setLoading(false);

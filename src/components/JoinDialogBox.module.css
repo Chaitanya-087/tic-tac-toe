@@ -1,0 +1,72 @@
+.wrapper {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.show {
+    display: flex;
+}
+
+.body {
+    max-width: 320px;
+    width: 100%;
+    position: relative;
+    padding: 1rem;
+    color: var(--clr-very-light-gray);
+    background-color: var(--clr-dark-gray);
+    border-radius: 0.5rem;
+    animation: slide 0.3s ease-in-out;
+}
+
+@keyframes slide {
+    from {
+        top: -10px;
+        opactiy: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+.title {
+    font-size: 1.5rem;
+    text-align: center;
+}
+.sub {
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+.icon {
+    font-size: 1.25rem;
+}
+
+.roomInput {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--clr-very-light-gray);
+    border-radius: 0.25rem;
+    background-color: var(--clr-dark-gray);
+    color: var(--clr-very-light-gray);
+    margin-block: 1rem;
+}
+
+.play {
+    padding: 0.5rem;
+    flex: 1;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: black;
+    background-color: var(--clr-yellow);
+}

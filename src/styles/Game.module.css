@@ -1,0 +1,355 @@
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--clr-very-light-gray);
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vh;
+    max-width: 90%;
+    margin-inline: auto;
+    padding-block: 2rem;
+}
+
+.gameContainer {
+    max-width: 314px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.footer>* {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    padding-block: 0.25rem;
+}
+
+.stat:nth-of-type(1) {
+    background-color: var(--clr-cyan);
+    box-shadow: 0 5px 0 rgb(27,158,155);
+}
+
+.stat:nth-of-type(2) {
+    background-color: var(--clr-very-light-gray);
+    box-shadow: 0 5px 0 rgb(140, 138, 138);
+}
+
+.stat:nth-of-type(3) {
+    background-color: var(--clr-yellow);
+    box-shadow: 0 5px 0 rgb(203,140,21);
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title>.x,
+.title>.o {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.title>.x::after,
+.title>.x::before {
+    content: '';
+    position: absolute;
+    width: 1.5rem;
+    height: 0.5rem;
+    background-color: var(--clr-cyan);
+    border-radius: 0.125rem;
+}
+
+.title>.x::after {
+    transform: rotate(45deg);
+}
+
+.title>.x::before {
+    transform: rotate(-45deg);
+}
+
+.title>.o::after {
+    content: '';
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--clr-yellow);
+    border-radius: 9999px;
+}
+
+.title>.o::before {
+    content: '';
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--clr-dark-blue);
+    border-radius: 9999px;
+    z-index: 2;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.reset {
+    background-color: var(--clr-very-light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 0 rgb(111, 111, 111);
+    cursor: pointer;
+}
+.turn {
+    color: var(--clr-very-light-gray);
+    width: 90px;
+    padding-block: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--clr-dark-gray);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 0 rgb(16, 33, 41);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    aspect-ratio: 1;
+    background-color: rgb(31, 52, 65);
+    border-radius: 8px;
+    box-shadow: 0 8px 0 rgb(16, 33, 41);
+    cursor: pointer;
+    user-select: none;
+}
+
+.x {
+    position: relative;
+}
+
+.x::after,
+.x::before {
+    content: '';
+    position: absolute;
+    width: 2rem;
+    height: 0.5rem;
+    background-color: var(--clr-cyan);
+    border-radius: 0.125rem;
+}
+
+.x::after {
+    transform: rotate(45deg);
+}
+
+.x::before {
+    transform: rotate(-45deg);
+}
+
+.o {
+    position: relative;
+}
+
+.o::after {
+    content: '';
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    background-color: #f3b236;
+    border-radius: 9999px;
+}
+
+.o::before {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background-color: #1f3441;
+    border-radius: 9999px;
+    z-index: 2;
+}
+
+.x.winSquare::after,
+.x.winSquare::before {
+    background-color: #1f3441;
+}
+
+.o.winSquare::after {
+    background-color: #1f3441;
+}
+
+.o.winSquare::before {
+    background-color: #f3b236;
+}
+
+.cell.x.winSquare {
+    background-color: #00FFFF;
+}
+
+.cell.o.winSquare {
+    background-color: #f3b236;
+}
+
+.win.x,
+.win.o {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.win.x::after {
+    content: '';
+    position: absolute;
+    width: 2.5rem;
+    height: 0.75rem;
+    background-color: #00FFFF;
+    border-radius: 0.125rem;
+    transform: rotate(45deg);
+}
+
+.win.x::before {
+    content: '';
+    position: absolute;
+    width: 2.5rem;
+    height: 0.75rem;
+    background-color: #00FFFF;
+    border-radius: 0.125rem;
+    transform: rotate(-45deg);
+}
+
+.win.o::after {
+    content: '';
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #f3b236;
+    border-radius: 9999px;
+}
+
+.win.o::before {
+    content: '';
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: #1f3441;
+    border-radius: 9999px;
+    z-index: 2;
+}
+
+.messageContainer {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--clr-dark-gray);
+    padding: 0.75rem;
+    color: var(--clr-very-light-gray);
+}
+
+.message {
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+.message.cyan {
+    color: var(--clr-cyan);
+}
+
+.message.yellow {
+    color: var(--clr-yellow);
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.quit,
+.rematch,
+.proceed,
+.cancel {
+    padding: 0.5rem 0.75rem;
+    font-size: 12px;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.quit,.proceed {
+    background-color: var(--clr-very-light-gray);
+    box-shadow: 0 5px 0 grey;
+}
+
+.rematch,.cancel {
+    background-color: var(--clr-yellow);
+    box-shadow: 0 5px 0 rgb(203, 140, 21);
+}
+
+@media screen and (max-width: 768px) {
+    .message {
+        font-size: 1.5rem;
+    }
+}
